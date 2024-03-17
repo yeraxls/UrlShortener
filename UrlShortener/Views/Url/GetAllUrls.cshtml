@@ -1,0 +1,50 @@
+﻿@model List<LoadUrlsVM>
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<IdentityUser> UserManager
+@await Html.PartialAsync("CreateUrl", new UrlVM())
+<h1 class="mt-4">Lista de urls</h1>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Name shorted</th>
+            <th>Url</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var url in Model)
+            {
+                <tr>
+                    <td>@url.Name</td>
+                    <td>@url.Url</td>
+                    <td>
+                        <form asp-controller="Url" method="post">
+                            <input type="hidden" name="idUsuario" value="@UserManager.GetUserId(User)" />
+
+                            @if (url.Enabled)
+                            {
+                                <button type="submit" class="btn btn-outline-warning" asp-action="ChangeEnableUrl" asp-route-id="@url.Id">
+                                    <i class="bi bi-lightbulb-off-fill"></i>
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-outline-success" asp-action="ChangeEnableUrl" asp-route-id="@url.Id">
+                                    <i class="bi bi-lightbulb-fill"></i>
+                                </button>
+                            }
+                            <button type="submit" class="btn btn-outline-info" asp-action="ChangeEnableUrl" asp-route-id="@url.Id">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+
+                            <button type="submit" class="btn btn-outline-danger" asp-action="DeleteUrl" asp-route-id="@url.Id"><i class="bi bi-trash-fill"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

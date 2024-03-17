@@ -1,0 +1,40 @@
+﻿@model List<UserForTableVM>
+<h1>Lista de usuarios</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre de usuario</th>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Name</td>
+                    <td>@user.Lastname</td>
+                    <td>@user.Email</td>
+                    <td>@user.Phone</td>
+                    <td>
+                        <!-- <snippet_Edit> -->
+                        edit
+                        <!-- </snippet_Edit> -->
+                        <!-- <snippet_Delete> -->
+                        delete
+                        <!-- </snippet_Delete> -->
+                        detail
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

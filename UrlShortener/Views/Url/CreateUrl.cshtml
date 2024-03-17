@@ -1,0 +1,41 @@
+﻿@model UrlVM
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title text-center">New Url Shortener</h3>
+        <div class="mt-4">
+            <form asp-controller="Url" asp-action="CreateUrl" method="post">
+                <input asp-for="@Model.UserId" value="@UserManager.GetUserId(User)" type="hidden" />
+                <input asp-for="@Model.Username" value="@UserManager.GetUserName(User)" type="hidden" />
+                <div class="row">
+                    <div class="col-sm-5 mb-3">
+                        <label asp-for="Name" class="col-sm-2"></label>
+                        <input asp-for="Name" class="form-control" placeholder="Ingresa tu nombre de usuario" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-sm-5 mb-3">
+                        <label asp-for="Url" class="col-sm-2"></label>
+                        <input asp-for="Url" class="form-control" placeholder="Ingresa la url para acortar" />
+                        <span asp-validation-for="Url" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-md btn-primary mt-4 w-75">enviar</button>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-danger" asp-validation-summary="All"></div>
+
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
