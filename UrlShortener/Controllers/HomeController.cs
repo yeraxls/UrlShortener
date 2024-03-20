@@ -22,12 +22,15 @@ namespace UrlShortener.Controllers
             return View();
         }
 
-        [HttpGet("/{userName}/{path}")]
+        [HttpGet("/re/{userName}/{path}")]
         public async Task<IActionResult> RedirectUrl(string userName, string path)
         {
             var urlVM = await _urlService.GetUrlByName($"{userName}/{path}");
             if (urlVM == null)
-                return View("Error");
+            {
+                ModelState.AddModelError(String.Empty, "This name its alrready exist");
+                return View("ErrorUrl");
+            }
             Response.Redirect(urlVM.Url);
             return View("Index");
         }
