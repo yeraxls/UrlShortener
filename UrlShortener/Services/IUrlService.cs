@@ -9,5 +9,7 @@ namespace UrlShortener.Services
         Task<AppUrl> GetUrl(int id);
         Task Delete(AppUrl url);
         Task UpdateEnabled(AppUrl url);
+        Task EditUrl(AppUrl url, LoadUrlsVM urlVM);
+        Task<AppUrl> GetUrlByName(string nameUrl);
     }
 }

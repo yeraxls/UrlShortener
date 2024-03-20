@@ -12,13 +12,15 @@ namespace UrlShortener.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserRepositoryService _repository;
 
-        public UsersController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, UrlShortenerDbContext context, IUserRepositoryService repository)
+        public UsersController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, UrlShortenerDbContext context, IUserRepositoryService repository, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _repository = repository;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -30,6 +32,20 @@ namespace UrlShortener.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register()
         {
+            //Para la creación de los roles
+            if (!await _roleManager.RoleExistsAsync("Administrador"))
+            {
+                //Creación de rol usuario Administrador
+                await _roleManager.CreateAsync(new IdentityRole("Administrador"));
+            }
+
+            //Para la creación de los roles
+            if (!await _roleManager.RoleExistsAsync("Registrado"))
+            {
+                //Creación de rol usuario Registrado
+                await _roleManager.CreateAsync(new IdentityRole("Registrado"));
+            }
+
             RegisterVM registerVM = new RegisterVM();
             return View(registerVM);
         }
@@ -59,12 +75,12 @@ namespace UrlShortener.Controllers
                 ValidateErrors(result);
                 return View(registerVM);
             }
+            await _userManager.AddToRoleAsync(user, "Registrado");
             await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction(nameof(Index), "Home");
         }
 
         [AllowAnonymous]
-        //Manejador de errores
         private void ValidateErrors(IdentityResult resultado)
         {
             foreach (var error in resultado.Errors)
@@ -114,11 +130,17 @@ namespace UrlShortener.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> GetUsers()
         {
             var result = await _repository.GetUsers();
             return View(result);
+        }
+
+        [HttpGet]
+        public  IActionResult Denied()
+        {
+            return View();
         }
     }
 }

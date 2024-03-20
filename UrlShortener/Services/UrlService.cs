@@ -48,6 +48,17 @@ namespace UrlShortener.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task EditUrl(AppUrl url, LoadUrlsVM urlVM)
+        {
+            url.Url = urlVM.Url;
+            url.UrlShort = urlVM.Name;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<AppUrl> GetUrlByName(string nameUrl)
+        {
+            return await _context.Queryable<AppUrl>(c => c.UrlShort == nameUrl && c.Enabled).FirstOrDefaultAsync();
+        }
 
     }
 }

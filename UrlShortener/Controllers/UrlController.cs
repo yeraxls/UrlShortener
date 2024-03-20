@@ -42,7 +42,9 @@ namespace UrlShortener.Controllers
             }
             return RedirectToAction("GetAllUrls", "Url", new { id = urlShort.UserId });
         }
+
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllUrls(string id)
         {
             var result = await _urlService.GetAllUrls(id);
@@ -72,6 +74,26 @@ namespace UrlShortener.Controllers
             }
 
             await _urlService.UpdateEnabled(urlDB);
+            return RedirectToAction("GetAllUrls", "Url", new { id = idUsuario });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> EditUrl(int id)
+        {
+            var url = await _urlService.GetUrl(id);
+
+            return View((LoadUrlsVM)url);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> EditUrl(LoadUrlsVM urlVM, string idUsuario)
+        {
+            var url = await _urlService.GetUrl(urlVM.Id);
+            await _urlService.EditUrl(url, urlVM);
+            if(idUsuario != url.UserId)
+                return RedirectToAction("GetAllUrls", "Url", new { id = url.UserId });
             return RedirectToAction("GetAllUrls", "Url", new { id = idUsuario });
         }
     }

@@ -1,4 +1,5 @@
 ﻿@model List<UserForTableVM>
+
 <h1>Lista de usuarios</h1>
 <table class="table">
     <thead>
@@ -25,6 +26,8 @@
                     <td>@user.Email</td>
                     <td>@user.Phone</td>
                     <td>
+
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Url" asp-action="GetAllUrls" asp-route-id="@user.Id"><i class="bi bi-link-45deg"></i></a>
                         <!-- <snippet_Edit> -->
                         edit
                         <!-- </snippet_Edit> -->
