@@ -34,6 +34,12 @@ namespace UrlShortener.Controllers
         [Authorize]
         public async Task<IActionResult> CreateUrl(UrlVM urlShort)
         {
+            var count = await _urlService.CountUrl(urlShort);
+            if (count >= 5)
+            {
+                ModelState.AddModelError(String.Empty, "Execed limit of URLs, you only can create 5 Urls");
+                return View(urlShort);
+            }
             var result = await _urlService.AddUrl(urlShort);
             if (!result)
             {
@@ -92,7 +98,7 @@ namespace UrlShortener.Controllers
         {
             var url = await _urlService.GetUrl(urlVM.Id);
             await _urlService.EditUrl(url, urlVM);
-            if(idUsuario != url.UserId)
+            if (idUsuario != url.UserId)
                 return RedirectToAction("GetAllUrls", "Url", new { id = url.UserId });
             return RedirectToAction("GetAllUrls", "Url", new { id = idUsuario });
         }

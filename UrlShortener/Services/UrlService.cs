@@ -12,6 +12,11 @@ namespace UrlShortener.Services
         {
             _context = context;
         }
+        public async Task<int> CountUrl(UrlVM urlVM)
+        {
+            var urlModel = (AppUrl)urlVM;
+            return await _context.Queryable<AppUrl>(c => c.UserId == urlModel.UserId).CountAsync();
+        }
 
         public async Task<bool> AddUrl(UrlVM urlVM)
         {

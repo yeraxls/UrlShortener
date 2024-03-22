@@ -21,7 +21,19 @@
                 Email = user.Email??"",
                 Phone = user.Phone,
             };
+        }
 
+        public static explicit operator AppUser(UserForTableVM user)
+        {
+            return new AppUser
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Lastname = user.Lastname,
+                UserName = user.UserName,
+                Email = user.Email ?? "",
+                Phone = user.Phone,
+            };
         }
     }
 }

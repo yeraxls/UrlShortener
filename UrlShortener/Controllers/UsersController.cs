@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using UrlShortener.Context;
 using UrlShortener.Models;
 using UrlShortener.Services;
@@ -107,7 +106,7 @@ namespace UrlShortener.Controllers
             if (!ModelState.IsValid)
                 return View(login);
             var result = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, lockoutOnFailure: true);
-            
+
             if (result.IsLockedOut)
                 return View("Bloqueado");
 
@@ -117,7 +116,7 @@ namespace UrlShortener.Controllers
                 return View(login);
             }
 
-            
+
 
             return LocalRedirect(returnurl);
         }
@@ -138,7 +137,60 @@ namespace UrlShortener.Controllers
         }
 
         [HttpGet]
-        public  IActionResult Denied()
+        public IActionResult Denied()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> UpdateProfile(string id)
+        {
+            var user = await _repository.GetUserById(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateProfile(UserForTableVM user)
+        {
+            if (!ModelState.IsValid)
+                return View(user);
+            await _repository.UpdateUser(user);
+            return RedirectToAction(nameof(Index), "Home");
+
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordVM changePassword, string id)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                if (user == null)
+                    return RedirectToAction("Error");
+
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                var result = await _userManager.ResetPasswordAsync(user, token, changePassword.Password);
+                if (result.Succeeded)
+                    return RedirectToAction("ConfirmChangePassword");
+                else
+                    return View(changePassword);
+            }
+            return View(changePassword);
+        }
+
+        [HttpGet]
+        public IActionResult ConfirmChangePassword()
         {
             return View();
         }

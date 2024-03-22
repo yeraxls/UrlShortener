@@ -11,5 +11,6 @@ namespace UrlShortener.Services
         Task UpdateEnabled(AppUrl url);
         Task EditUrl(AppUrl url, LoadUrlsVM urlVM);
         Task<AppUrl> GetUrlByName(string nameUrl);
+        Task<int> CountUrl(UrlVM urlVM);
     }
 }

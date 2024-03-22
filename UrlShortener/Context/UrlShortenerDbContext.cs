@@ -20,7 +20,7 @@ namespace UrlShortener.Context
             return elemento;
         }
 
-        public async Task SalvarCambios()
+        public async Task SaveAll()
         {
             await SaveChangesAsync();
         }

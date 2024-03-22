@@ -6,5 +6,7 @@ namespace UrlShortener.Services
     public interface IUserRepositoryService
     {
         Task<List<UserForTableVM>> GetUsers();
+        Task<UserForTableVM> GetUserById(string userId);
+        Task UpdateUser(UserForTableVM user);
     }
 }
