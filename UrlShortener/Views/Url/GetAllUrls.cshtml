@@ -3,8 +3,8 @@
 
 @inject UserManager<IdentityUser> UserManager
 @await Html.PartialAsync("CreateUrl", new UrlVM())
-<h1 class="mt-4">List of URLs</h1>
-<table class="table table-striped table-hover">
+<h1 class="mt-4 bg-dark text-white text-center">List of URLs</h1>
+<table class="table table-striped table-hover bg-light text-dark">
     <thead>
         <tr>
             <th>Name shorted</th>
@@ -18,8 +18,8 @@
             foreach (var url in Model)
             {
                 <tr>
-                    <td>@url.Name</td>
-                    <td>@url.Url</td>
+                    <td class="text-dark">@url.Name</td>
+                    <td class="text-dark">@url.Url</td>
                     <td>
                         <form asp-controller="Url" method="post">
                             <input type="hidden" name="idUsuario" value="@UserManager.GetUserId(User)" />

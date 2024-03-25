@@ -1,14 +1,40 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@{
     ViewData["Title"] = "Url shortener";
 }
 
 <div class="row">
-    <div class="card col-12">
+    <div class="card col-12 bg-dark text-white">
         <div class="card-body">
             <h1 class="card-title text-center mb-4">Url Shortener</h1>
-            <img href="./images/home.jpg" alt="imagen cadenas" />
-            <p class="card-text">The best option to get short url, and, remember, its FREE</p>
-            <a asp-controller="Users" asp-action="Register" class="btn btn-primary">Register</a>
+            <h3 class="card-title text-center mb-4">The best option for get shor URL</h3>
+            <div class="row">
+                <img class="col-6" src="images/home.jpg" alt="Sample Photo" />
+                <div class="col-6">
+                    <p class="card-text">
+                        Url shortener is the best option to shorten urls, in a simple way and with a free option.
+                    </p>
+                    <p class="card-text">
+                        Forget about paying to have a short URL.
+                    </p>
+                    <p class="card-text">
+                        And most importantly, no ads, no data storage, we care about your privacy.
+                        We only save your account, so you can log in and create more short URLs and the URLs themselves.
+                    </p>
+                    <p class="card-text">
+                        In the future we will see how to monetize the project, to make it profitable to maintain it.
+                    </p>
+                    <p class="card-text">
+                        For the time being, it will be free, as it is still a study project to learn.
+                    </p>
+                    @if (!SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-controller="Users" asp-action="Register" class="btn btn-primary col-5">Register</a>
+                        <a asp-controller="Users" asp-action="Login" class="btn btn-primary col-5">Login</a>
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -4,8 +4,6 @@
     ViewData["Title"] = "Administración de roles";
 }
 
-<h1 class="text-center">Admin roles</h1>
-
 @if (TempData["Correcto"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -24,30 +22,30 @@
 
 
 <div class="row">
-    <div class="col-sm-3 offset-9">
-        <a asp-action="CreateRol" asp-controller="Rol" class="btn btn-primary w-100">Create new rol</a>
-    </div>
-</div>
-
-
-<div class="row">
     <div class="col-sm-12">
 
-        <div class="card border">
+        <div class="card border-secondary bg-dark text-white text-center">
             <div class="card-header">
-                <h3><strong>List of roles</strong></h3>
+                <h3><strong>Roles admin</strong></h3>
             </div>
         </div>
+
         <div class="card-body">
             <div>
                 @if (Model.Count() > 0)
                 {
-                    <table class="d-lg-table table-bordered" id="tablaRoles" width="100%" cellspacing="0">
+                    <table class="d-lg-table table-bordered bg-light text-center" id="tablaRoles" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th class="col-4">Id</th>
                                 <th class="col-4">Name</th>
-                                <th class="col-4">Actions</th>
+                                <th class="col-4">
+                                    <div class="row">
+                                        <div class="offset-2 col-8">
+                                            <a asp-action="CreateRol" asp-controller="Rol" class="btn btn-primary w-100">Create new rol</a>
+                                        </div>
+                                    </div>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
