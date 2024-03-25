@@ -14,18 +14,18 @@
                 <div class="row">
                     <div class="col-sm-5 mb-3">
                         <label asp-for="Name" class="col-sm-2"></label>
-                        <input asp-for="Name" class="form-control" placeholder="Ingresa tu nombre de usuario" />
+                        <input asp-for="Name" class="form-control" placeholder="Insert name" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
                     <div class="col-sm-5 mb-3">
                         <label asp-for="Url" class="col-sm-2"></label>
-                        <input asp-for="Url" class="form-control" placeholder="Ingresa la url para acortar" />
+                        <input asp-for="Url" class="form-control" placeholder="Insert URL" />
                         <span asp-validation-for="Url" class="text-danger"></span>
                     </div>
 
                     <div class="col-sm-2">
-                        <button type="submit" class="btn btn-md btn-primary mt-4 w-75">enviar</button>
+                        <button type="submit" class="btn btn-md btn-primary mt-4 w-75">Create</button>
                     </div>
                 </div>
                 <div class="col-sm-12 text-danger" asp-validation-summary="All"></div>

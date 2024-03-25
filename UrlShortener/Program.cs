@@ -25,6 +25,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.AddTransient<IUserRepositoryService, UserRepositoryService>();
 builder.Services.AddTransient<IUrlService, UrlService>();
+builder.Services.AddTransient<IRolesService, RolesService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

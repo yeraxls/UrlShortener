@@ -1,11 +1,11 @@
 ﻿@model List<UserForTableVM>
 
-<h1>Lista de usuarios</h1>
+<h1>List of users</h1>
 <table class="table">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Nombre de usuario</th>
+            <th>Username</th>
             <th>Name</th>
             <th>Lastname</th>
             <th>Email</th>
@@ -26,15 +26,20 @@
                     <td>@user.Email</td>
                     <td>@user.Phone</td>
                     <td>
-
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Url" asp-action="GetAllUrls" asp-route-id="@user.Id"><i class="bi bi-link-45deg"></i></a>
+                        <!-- <snippet_GetURLs> -->
+                        <a class="btn btn-outline-success" asp-area="" asp-controller="Url" asp-action="GetAllUrls" asp-route-id="@user.Id">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
                         <!-- <snippet_Edit> -->
-                        edit
+                        <a class="btn btn-outline-info" asp-area="" asp-controller="Users" asp-action="UpdateProfile" asp-route-id="@user.Id">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
                         <!-- </snippet_Edit> -->
                         <!-- <snippet_Delete> -->
-                        delete
+                        <a class="btn btn-outline-danger" asp-area="" asp-controller="Users" asp-action="DeleteUser" asp-route-id="@user.Id">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
                         <!-- </snippet_Delete> -->
-                        detail
                     </td>
                 </tr>
             }

@@ -162,8 +162,7 @@ namespace UrlShortener.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> ChangePassword()
+        public IActionResult ChangePassword()
         {
             return View();
         }
@@ -193,6 +192,14 @@ namespace UrlShortener.Controllers
         public IActionResult ConfirmChangePassword()
         {
             return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            await _repository.DeleteUser(id);
+            return RedirectToAction("GetUsers");
         }
     }
 }

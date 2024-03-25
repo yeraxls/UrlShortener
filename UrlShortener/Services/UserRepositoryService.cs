@@ -36,5 +36,12 @@ namespace UrlShortener.Services
 
             await _context.SaveAll();
         }
+
+        public async Task DeleteUser(string id)
+        {
+            var result = await _context.Queryable<AppUser>(u => u.Id == id).FirstOrDefaultAsync();
+            await _context.Delete(result);
+            await _context.SaveAll();
+        }
     }
 }

@@ -8,14 +8,11 @@
     {
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Mi cuenta
+                Hi, @UserManager.GetUserName(User)
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="">Hola, @UserManager.GetUserName(User)</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="UpdateProfile" asp-route-id="@UserManager.GetUserId(User)">Editar Perfil</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="UpdateProfile" asp-route-id="@UserManager.GetUserId(User)">Update profile</a>
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li class="nav-item">
