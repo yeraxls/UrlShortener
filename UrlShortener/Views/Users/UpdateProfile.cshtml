@@ -6,9 +6,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="card">
+<div class="card bg-dark">
     <div class="card-body">
-        <h3 class="card-title text-center">Editar perfil de usuario</h3>
+        <h3 class="card-title text-white text-center">Update user profile</h3>
         <form asp-controller="Users" asp-action="UpdateProfile" method="post">
 
             <input type="hidden" asp-for="Id" />
@@ -19,19 +19,19 @@
                 <div class="col-sm-6">
 
                     <div class="mb-3">
-                        <label asp-for="UserName" class="col-md-2"></label>
+                        <label asp-for="UserName" class="col-md-2 text-white"></label>
                         <input asp-for="UserName" class="form-control" placeholder="Ingresa tu país" />
                         <span asp-validation-for="UserName" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Name" class="col-md-2"></label>
+                        <label asp-for="Name" class="col-md-2 text-white"></label>
                         <input asp-for="Name" class="form-control" placeholder="Ingresa tu nombre" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Lastname" class="col-md-2"></label>
+                        <label asp-for="Lastname" class="col-md-2 text-white"></label>
                         <input asp-for="Lastname" class="form-control" placeholder="Ingresa tu nombre" />
                         <span asp-validation-for="Lastname" class="text-danger"></span>
                     </div>
@@ -40,13 +40,13 @@
                 <div class="col-sm-6">
 
                     <div class="mb-3">
-                        <label asp-for="Email" class="col-md-2"></label>
+                        <label asp-for="Email" class="col-md-2 text-white"></label>
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Phone" class="col-md-2"></label>
+                        <label asp-for="Phone" class="col-md-2 text-white"></label>
                         <input asp-for="Phone" class="form-control" placeholder="Ingresa tu teléfono" />
                         <span asp-validation-for="Phone" class="text-danger"></span>
                     </div>

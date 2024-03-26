@@ -6,8 +6,8 @@
 }
 
 <div class="card">
-    <div class="card-body">
-        <h3 class="card-title text-center">Acceso de usuario</h3>
+    <div class="card-body bg-black">
+        <h3 class="card-title text-white text-center">Sign In</h3>
 
 
         <div class="row mt-4">
@@ -15,19 +15,19 @@
                 <form asp-controller="Users" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
                     <div class="text-danger" asp-validation-summary="All"></div>
                     <div class="mb-3">
-                        <label asp-for="UserName" class="col-md-2"></label>
+                        <label asp-for="UserName" class="col-md-2 text-white"></label>
                         <input asp-for="UserName" class="form-control" placeholder="Ingresa tu nombre de usuario" />
                         <span asp-validation-for="UserName" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Password" class="col-md-2"></label>
+                        <label asp-for="Password" class="col-md-2 text-white"></label>
                         <input asp-for="Password" class="form-control" placeholder="Ingresa la contraseña" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <div class="custom-check">
+                        <div class="custom-check text-white">
                             <label asp-for="RememberMe">
                                 <input asp-for="RememberMe" />
                                 @Html.DisplayNameFor(m => m.RememberMe)
@@ -38,15 +38,16 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <button type="submit" class="btn btn-success w-100 btn-lg">Acceder <i class="bi bi-arrow-right-circle-fill"></i></button>
-                            <p><a asp-action="Registro">Registrarse como un nuevo usuario?</a></p>
-                            <p><a asp-action="OlvidoPassword">Olvidaste tu contraseña?</a></p>
+                            <p><a asp-action="Registro">Sign up?</a></p>
+                            <p><a asp-action="OlvidoPassword">Did you forget your password?</a></p>
                         </div>
                     </div>
 
                 </form>
             </div>
-            <div class="col-sm-6">
-                <h3>Aquí los inicios externos</h3>
+            <div class="col-sm-6 text-white">
+                <h3>External Sign In</h3>
+                <p>Coming soon</p>
             </div>
         </div>
     </div>

@@ -4,20 +4,20 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<div class="card">
+<div class="card bg-dark">
     <div class="card-body">
-        <h3 class="card-title text-center">New Url Shortener</h3>
+        <h3 class="card-title text-white text-center">Edit URL</h3>
         <div class="mt-4">
             <form asp-controller="Url" asp-action="EditUrl" method="post" asp-route-idUsuario="@UserManager.GetUserId(User)">
                 <div class="row">
                     <div class="col-sm-5 mb-3">
-                        <label asp-for="Name" class="col-sm-2"></label>
+                        <label asp-for="Name" class="col-sm-2 text-white"></label>
                         <input asp-for="Name" class="form-control" value="@Model.Name" placeholder="Ingresa tu nombre de usuario" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
                     <div class="col-sm-5 mb-3">
-                        <label asp-for="Url" class="col-sm-2"></label>
+                        <label asp-for="Url" class="col-sm-2 text-white"></label>
                         <input asp-for="Url" class="form-control" value="@Model.Url" placeholder="Ingresa la url para acortar" />
                         <span asp-validation-for="Url" class="text-danger"></span>
                     </div>
