@@ -10,6 +10,7 @@
             <th>Name shorted</th>
             <th>URL</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +21,9 @@
                 <tr>
                     <td class="text-dark">@url.Name</td>
                     <td class="text-dark">@url.Url</td>
+                    <td class="text-dark">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('@url.Name')"><i class="bi bi-copy"></i></button>
+                    </td>
                     <td>
                         <form asp-controller="Url" method="post">
                             <input type="hidden" name="idUsuario" value="@UserManager.GetUserId(User)" />
@@ -48,3 +52,9 @@
         }
     </tbody>
 </table>
+<script>
+    function copyToClipboard(message) {
+        var msg = "https://localhost:7293/re/" + message;
+        navigator.clipboard.writeText(msg);
+    }
+</script>

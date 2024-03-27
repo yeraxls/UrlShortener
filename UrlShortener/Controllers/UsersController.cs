@@ -91,7 +91,7 @@ namespace UrlShortener.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string? returnurl = null)
+        public IActionResult Login(string? returnurl = null)
         {
             ViewData["ReturnUrl"] = returnurl;
             return View();
