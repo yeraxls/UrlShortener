@@ -6,13 +6,15 @@ namespace UrlShortener.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public int NumOfUrls { get; set; }
 
-        public static explicit operator RoleVM(IdentityRole role)
+        public static explicit operator RoleVM(AppRole role)
         {
             return new RoleVM
             {
                 Id = role.Id,
-                Name = role.Name
+                Name = role.Name,
+                NumOfUrls = role.NumOfUrls
             };
         }
     }

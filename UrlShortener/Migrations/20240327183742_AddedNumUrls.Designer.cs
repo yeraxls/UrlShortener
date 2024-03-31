@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UrlShortener.Context;
 
@@ -11,9 +12,11 @@ using UrlShortener.Context;
 namespace UrlShortener.Migrations
 {
     [DbContext(typeof(UrlShortenerDbContext))]
-    partial class UrlShortenerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240327183742_AddedNumUrls")]
+    partial class AddedNumUrls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,9 +29,6 @@ namespace UrlShortener.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("AppUrlId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -48,8 +48,6 @@ namespace UrlShortener.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUrlId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -71,9 +69,6 @@ namespace UrlShortener.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AppUrlId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
 
@@ -86,8 +81,6 @@ namespace UrlShortener.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUrlId");
-
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
@@ -99,9 +92,6 @@ namespace UrlShortener.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AppUrlId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -155,8 +145,6 @@ namespace UrlShortener.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUrlId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -180,9 +168,6 @@ namespace UrlShortener.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AppUrlId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
 
@@ -194,8 +179,6 @@ namespace UrlShortener.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUrlId");
 
                     b.HasIndex("UserId");
 
@@ -210,9 +193,6 @@ namespace UrlShortener.Migrations
                     b.Property<string>("ProviderKey")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("AppUrlId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
@@ -221,8 +201,6 @@ namespace UrlShortener.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("AppUrlId");
 
                     b.HasIndex("UserId");
 
@@ -237,12 +215,7 @@ namespace UrlShortener.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("AppUrlId")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("AppUrlId");
 
                     b.HasIndex("RoleId");
 
@@ -260,15 +233,10 @@ namespace UrlShortener.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("AppUrlId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.HasIndex("AppUrlId");
 
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
@@ -344,19 +312,8 @@ namespace UrlShortener.Migrations
                     b.HasDiscriminator().HasValue("AppUser");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.HasOne("UrlShortener.Models.AppUrl", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("AppUrlId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("UrlShortener.Models.AppUrl", null)
-                        .WithMany("RoleClaims")
-                        .HasForeignKey("AppUrlId");
-
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
@@ -364,19 +321,8 @@ namespace UrlShortener.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.HasOne("UrlShortener.Models.AppUrl", null)
-                        .WithMany("Users")
-                        .HasForeignKey("AppUrlId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("UrlShortener.Models.AppUrl", null)
-                        .WithMany("UserClaims")
-                        .HasForeignKey("AppUrlId");
-
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -386,10 +332,6 @@ namespace UrlShortener.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("UrlShortener.Models.AppUrl", null)
-                        .WithMany("UserLogins")
-                        .HasForeignKey("AppUrlId");
-
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -399,10 +341,6 @@ namespace UrlShortener.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("UrlShortener.Models.AppUrl", null)
-                        .WithMany("UserRoles")
-                        .HasForeignKey("AppUrlId");
-
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
@@ -418,32 +356,11 @@ namespace UrlShortener.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("UrlShortener.Models.AppUrl", null)
-                        .WithMany("UserTokens")
-                        .HasForeignKey("AppUrlId");
-
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("UrlShortener.Models.AppUrl", b =>
-                {
-                    b.Navigation("RoleClaims");
-
-                    b.Navigation("Roles");
-
-                    b.Navigation("UserClaims");
-
-                    b.Navigation("UserLogins");
-
-                    b.Navigation("UserRoles");
-
-                    b.Navigation("UserTokens");
-
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

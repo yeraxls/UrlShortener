@@ -44,9 +44,16 @@ namespace UrlShortener.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> UpdateRole(RoleVM rol)
         {
-            if (await _roleManager.RoleExistsAsync(rol.Name))
+            var roleDb = await _rolesService.GetRoleByID(rol.Id);
+            if (roleDb.Id == rol.Id && roleDb.NumOfUrls == rol.NumOfUrls)
+            {
+                TempData["Error"] = "There are not any change";
+                return RedirectToAction(nameof(Index));
+            }
+            if (await _roleManager.RoleExistsAsync(rol.Name) && rol.Name != roleDb.Name)
             {
                 TempData["Error"] = "El rol ya existe";
                 return RedirectToAction(nameof(Index));
@@ -66,6 +73,7 @@ namespace UrlShortener.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteRole(string id)
         {
             try

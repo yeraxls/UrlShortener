@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using UrlShortener.Context;
 using UrlShortener.Models;
 
@@ -17,7 +18,7 @@ namespace UrlShortener.Services
         }
         public async Task<List<RoleVM>> GetRoles()
         {
-            return await _context.Roles.Select(c => (RoleVM)c).ToListAsync();
+            return await _context.Queryable<AppRole>().Select(c => (RoleVM)c).ToListAsync();
         }
         public async Task<RoleVM> GetRoleByID(string Id)
         {
@@ -27,7 +28,7 @@ namespace UrlShortener.Services
 
         public async Task UpdateRole(RoleVM role)
         {
-            var rolBD = _context.Roles.FirstOrDefault(r => r.Id == role.Id);
+            var rolBD = await _context.Queryable<AppRole>().FirstOrDefaultAsync(c => c.Id == role.Id);
             if (rolBD == null)
             {
                 throw new Exception();
@@ -35,6 +36,7 @@ namespace UrlShortener.Services
 
             rolBD.Name = role.Name;
             rolBD.NormalizedName = role.Name.ToUpper();
+            rolBD.NumOfUrls = role.NumOfUrls;
             await _roleManager.UpdateAsync(rolBD);
         }
 

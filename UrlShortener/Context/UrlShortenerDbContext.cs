@@ -12,6 +12,7 @@ namespace UrlShortener.Context
         }
 
         public DbSet<AppUser> AppUsuario { get; set; }
+        public DbSet<AppRole> AppRole { get; set; }
         public DbSet<AppUrl> AppUrl { get; set; }
 
         public async Task<T> Insert<T>(T elemento) where T : class

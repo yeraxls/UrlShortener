@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UrlShortener.Models
 {
-    public class AppUrl : DbContext
+    public class AppUrl : IdentityDbContext
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

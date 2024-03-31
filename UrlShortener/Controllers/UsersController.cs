@@ -42,7 +42,12 @@ namespace UrlShortener.Controllers
             if (!await _roleManager.RoleExistsAsync("Registrado"))
             {
                 //Creación de rol usuario Registrado
-                await _roleManager.CreateAsync(new IdentityRole("Registrado"));
+                await _roleManager.CreateAsync(new AppRole { Name = "Registrado", NumOfUrls= 3 });
+            }
+            if (!await _roleManager.RoleExistsAsync("FreeUser"))
+            {
+                //Creación de rol usuario Registrado
+                await _roleManager.CreateAsync(new AppRole { Name = "FreeUser", NumOfUrls = 3 });
             }
 
             RegisterVM registerVM = new RegisterVM();
