@@ -1,4 +1,4 @@
-﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+﻿@model AppRole
 @{
     ViewData["Title"] = "Crear nuevo rol";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,6 +17,12 @@
                         <label asp-for="Name" class="col-md-2"></label>
                         <input asp-for="Name" class="form-control" placeholder="Ingresa el nombre del rol" />
                         <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NumOfUrls" class="col-md-2"></label>
+                        <input type="number" asp-for="NumOfUrls" class="form-control" placeholder="Ingresa el nombre del rol" />
+                        <span asp-validation-for="NumOfUrls" class="text-danger"></span>
                     </div>
 
 

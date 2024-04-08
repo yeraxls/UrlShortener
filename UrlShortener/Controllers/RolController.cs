@@ -107,7 +107,7 @@ namespace UrlShortener.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            await _roleManager.CreateAsync(new IdentityRole() { Name = role.Name });
+            await _roleManager.CreateAsync(new AppRole() { Name = role.Name, NumOfUrls = role.NumOfUrls });
             TempData["Correcto"] = "Rol creado correctamente";
             return RedirectToAction(nameof(Index));
         }

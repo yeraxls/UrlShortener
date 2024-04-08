@@ -35,7 +35,7 @@ namespace UrlShortener.Controllers
             if (!await _roleManager.RoleExistsAsync("Administrador"))
             {
                 //Creación de rol usuario Administrador
-                await _roleManager.CreateAsync(new IdentityRole("Administrador"));
+                await _roleManager.CreateAsync(new AppRole { Name = "Administrador", NumOfUrls = 10 });
             }
 
             //Para la creación de los roles
