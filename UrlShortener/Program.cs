@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.Context;
+using UrlShortener.Inicializators;
 using UrlShortener.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddTransient<IUserRepositoryService, UserRepositoryService>();
 builder.Services.AddTransient<IUrlService, UrlService>();
 builder.Services.AddTransient<IRolesService, RolesService>();
+builder.Services.AddScoped<IInicializators, Inicializators>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -46,6 +48,19 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+using(var scope= app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+    try
+    {
+        var inicializador = services.GetRequiredService<IInicializators>();
+        inicializador.Inicializate();
+    }catch (Exception ex){
+        var logger = loggerFactory.CreateLogger<Program>();
+        logger.LogError("Migrate failed");
+    }
+}
 
 app.MapControllerRoute(
     name: "default",
